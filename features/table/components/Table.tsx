@@ -6,72 +6,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import {useState} from "react";
-import {Filter, Download, Market} from "@/features/images/svg";
-import {User} from "../type/Type";
+import {Filter, Download} from "@/features/images/svg";
+import {User} from "../type/type";
+import {colums} from "./colums/Colums";
 
 const columHelper = createColumnHelper<User>();
-
-const colums = [
-  columHelper.accessor("order_number", {
-    cell: (info) => (
-      <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
-    ),
-    header: () => (
-      <span className="flex justify-center items-center">
-        ნომერი
-        <Market width={15} height={15} />
-      </span>
-    ),
-  }),
-  //
-  columHelper.accessor("status", {
-    cell: (info) => info.getValue(),
-    header: () => <span>სტატუსი</span>,
-  }),
-  //
-  columHelper.accessor("date_created", {
-    cell: (info) => (
-      <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
-    ),
-    header: () => (
-      <span className="flex justify-center items-center">
-        თარიღი
-        <Market width={15} height={15} />
-      </span>
-    ),
-  }),
-  //
-  columHelper.accessor("order_type", {
-    cell: (info) => (
-      <span className="text-[#D59A04] text-[12px]">{info.getValue()}</span>
-    ),
-    header: () => <span>მეთოდი</span>,
-  }),
-  //
-  columHelper.accessor("amount_to", {
-    cell: (info) => (
-      <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
-    ),
-    header: () => (
-      <span className="flex justify-center items-center">
-        მიღებული თანხა
-        <Market width={15} height={15} />
-      </span>
-    ),
-  }),
-  //
-  columHelper.accessor("amount_from", {
-    cell: (info) => (
-      <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
-    ),
-    header: () => (
-      <span className="flex justify-center items-center">
-        გადახდილი თანხა
-        <Market width={15} height={15} />
-      </span>
-    ),
-  }),
-];
 
 const Table = ({initialData}: {initialData: User[]}) => {
   const [data, setData] = useState<User[]>(initialData);
