@@ -8,7 +8,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import {useState} from "react";
-import {Filter, Download} from "@/features/images/svg";
+import {Filter, Download, NextButton, PrevButton} from "@/features/images/svg";
 import {User} from "../type/type";
 import {colums} from "./colums/Colums";
 
@@ -84,33 +84,27 @@ const Table = ({initialData}: {initialData: User[]}) => {
           </tbody>
         </table>
         <div className="flex sm:flex-row flex-col justify-between items-center mt-4 text-gray-700 text-sm">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-[20px]">
             <button
-              className="bg-gray-100 hover:bg-gray-200 disabled:opacity-50 p-2 rounded-md text-gray-600"
+              className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] cursor-pointer"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
-            ></button>
-
+            >
+              <PrevButton />
+            </button>
             <span className="flex items-center">
-              <input
-                min={1}
-                max={table.getPageCount()}
-                type="number"
-                value={table.getState().pagination.pageIndex + 1}
-                onChange={(e) => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                  table.setPageIndex(page);
-                }}
-                className="p-2 border border-gray-300 rounded-md w-16 text-center"
-              />
-              <span className="ml-1">of {table.getPageCount()}</span>
+              <div className="text-white text-sm">
+                {table.getState().pagination.pageIndex + 1}
+              </div>
+              <span className="ml-1"> ..... {table.getPageCount()}</span>
             </span>
-
             <button
-              className="bg-gray-100 hover:bg-gray-200 disabled:opacity-50 p-2 rounded-md text-gray-600"
+              className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] cursor-pointer"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
-            ></button>
+            >
+              <NextButton />
+            </button>
           </div>
         </div>
       </div>
