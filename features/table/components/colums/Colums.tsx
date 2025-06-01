@@ -1,7 +1,6 @@
 import {createColumnHelper} from "@tanstack/react-table";
 import {Market} from "@/features/images/svg";
 import {User} from "../../type/type";
-import {text} from "stream/consumers";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -10,11 +9,14 @@ export const colums = [
     cell: (info) => (
       <span className="flex text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
-    header: () => (
-      <span className="flex items-center cursor-pointer">
+    header: ({column}) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex items-center cursor-pointer"
+      >
         ნომერი
-        <Market width={15} height={15} />
-      </span>
+        <Market className="text-[#9295A6]" width={15} height={15} />
+      </button>
     ),
   }),
   columnHelper.accessor("status", {
@@ -46,11 +48,14 @@ export const colums = [
     cell: (info) => (
       <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
-    header: () => (
-      <span className="flex items-center cursor-pointer">
+    header: ({column}) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex items-center cursor-pointer"
+      >
         თარიღი
-        <Market width={15} height={15} />
-      </span>
+        <Market className="text-[#9295A6]" width={15} height={15} />
+      </button>
     ),
   }),
   columnHelper.accessor("order_type", {
@@ -65,10 +70,13 @@ export const colums = [
     cell: (info) => (
       <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
-    header: () => (
-      <button className="flex items-center cursor-pointer">
+    header: ({column}) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex items-center cursor-pointer"
+      >
         მიღებული თანხა
-        <Market width={15} height={15} />
+        <Market className="text-[#9295A6]" width={15} height={15} />
       </button>
     ),
   }),
@@ -76,11 +84,14 @@ export const colums = [
     cell: (info) => (
       <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
-    header: () => (
-      <span className="flex items-center cursor-pointer">
+    header: ({column}) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex items-center cursor-pointer"
+      >
         გადახდილი თანხა
-        <Market width={15} height={15} />
-      </span>
+        <Market className="text-[#9295A6]" width={15} height={15} />
+      </button>
     ),
   }),
 ];
