@@ -9,7 +9,13 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import {useState} from "react";
-import {Filter, Download, NextButton, PrevButton} from "@/features/images/svg";
+import {
+  Filter,
+  Download,
+  NextButton,
+  PrevButton,
+  ShareButton,
+} from "@/features/images/svg";
 import {User} from "../type/type";
 import {colums} from "./colums/Colums";
 
@@ -55,7 +61,7 @@ const Table = ({initialData}: {initialData: User[]}) => {
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
-                className="py-[21px] border-[#9BA0B820] border-t border-b text-[#6C7080] text-[12px]"
+                className="border-[#9BA0B820] border-t border-b text-[#6C7080] text-[12px]"
                 key={headerGroup.id}
               >
                 {headerGroup.headers.map((header) => (
@@ -79,6 +85,9 @@ const Table = ({initialData}: {initialData: User[]}) => {
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
+                <td>
+                  <ShareButton className="text-[#6C7080] cursor-pointer" />
+                </td>
               </tr>
             ))}
           </tbody>
