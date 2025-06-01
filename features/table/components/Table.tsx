@@ -46,7 +46,9 @@ const Table = ({initialData}: {initialData: User[]}) => {
     <div className="flex flex-col justify-between bg-[#121318] m-auto mt-[48px] p-[40px] rounded-[10px] w-full max-w-[792px] min-h-[658px]">
       <div>
         <div className="flex justify-between items-center mb-[24px]">
-          <p className="font-medium text-[#FFFFFF] text-[23px]">ტრანზაქციები</p>
+          <p className="font-medium text-[#FFFFFF] text-[23px] cursor-pointer">
+            ტრანზაქციები
+          </p>
           <div className="flex justify-between w-full max-w-[385px]">
             <button className="flex items-center gap-[10px] px-[10px] border border-[#9BA0B820] rounded-[5px] w-full max-w-[315px] min-h-[50px] cursor-pointer">
               <Filter className="text-[#9295A6]" width={24} height={24} />
