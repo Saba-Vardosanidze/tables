@@ -40,11 +40,11 @@ const Table = ({initialData}: {initialData: User[]}) => {
           <p className="font-medium text-[#FFFFFF] text-[23px]">ტრანზაქციები</p>
           <div className="flex justify-between w-full max-w-[385px]">
             <button className="flex items-center gap-[10px] px-[10px] border border-[#9BA0B820] rounded-[5px] w-full max-w-[315px] min-h-[50px] cursor-pointer">
-              <Filter width={24} height={24} />
+              <Filter className="text-[#9295A6]" width={24} height={24} />
               <p className="text-[#9295A6] text-[14px]">ფილტრი</p>
             </button>
             <button className="flex justify-center items-center border border-[#9BA0B820] rounded-[5px] w-full max-w-[50px] min-h-[50px] cursor-pointer">
-              <Download width={24} height={24} />
+              <Download className="text-[#343C44]" width={24} height={24} />
             </button>
           </div>
         </div>
@@ -83,23 +83,31 @@ const Table = ({initialData}: {initialData: User[]}) => {
       </div>
 
       <div className="flex flex-row justify-between items-center mt-4 text-gray-700">
-        <div></div>
+        <div className="flex gap-[3px] text-[#6C7080]">
+          <p>{initialData.length}</p>
+          <p>ჩანაწერი</p>
+        </div>
         <div className="flex items-center gap-[20px]">
           <button
-            className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] cursor-pointer"
+            className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] text-[#D59A04] disabled:text-[#9295A6] cursor-pointer"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
             <PrevButton />
           </button>
-          <span className="flex items-center">
-            <div className="text-white">
+          <div className="flex justify-between">
+            <div className="flex justify-center items-center w-[30px] text-[#2B3144]">
               {table.getState().pagination.pageIndex + 1}
             </div>
-            <span> ..... {table.getPageCount()}</span>
-          </span>
+            <div className="flex justify-center items-center w-[30px]">
+              .....
+            </div>
+            <span className="flex justify-center items-center w-[30px] text-[#6C7080] text-[16px]">
+              {table.getPageCount()}
+            </span>
+          </div>
           <button
-            className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] cursor-pointer"
+            className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] text-[#D59A04] disabled:text-[#9295A6] cursor-pointer"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
