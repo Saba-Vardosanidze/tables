@@ -1,6 +1,7 @@
 import {createColumnHelper} from "@tanstack/react-table";
 import {Market} from "@/features/images/svg";
 import {User} from "../../type/type";
+import {text} from "stream/consumers";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -17,13 +18,28 @@ export const colums = [
     ),
   }),
   columnHelper.accessor("status", {
-    cell: (info) => (
-      <div className="flex flex-col items-center">
-        <span className="bg-[#080B0F] px-[10px] py-[3px] rounded-[5px] text-[10px] text-center">
-          {info.getValue()}
-        </span>
-      </div>
-    ),
+    cell: (info) => {
+      const value = info.getValue();
+
+      const TextColor =
+        value === "Completed"
+          ? "text-[#03A66D]"
+          : value === "Wallet Declined"
+          ? "text-[#E74C3C]"
+          : value === "Commission Review"
+          ? "text-[#D59A04]"
+          : "text-[#9BA0B8]";
+
+      return (
+        <div className="flex flex-col items-center">
+          <span
+            className={`${TextColor} bg-[#080B0F] px-[10px] py-[3px] rounded-[5px] text-[10px] text-center`}
+          >
+            {value}
+          </span>
+        </div>
+      );
+    },
     header: () => <span className="cursor-pointer">სტატუსი</span>,
   }),
   columnHelper.accessor("date_created", {
@@ -50,10 +66,10 @@ export const colums = [
       <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
     header: () => (
-      <span className="flex items-center cursor-pointer">
+      <button className="flex items-center cursor-pointer">
         მიღებული თანხა
         <Market width={15} height={15} />
-      </span>
+      </button>
     ),
   }),
   columnHelper.accessor("amount_from", {
