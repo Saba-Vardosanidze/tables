@@ -85,7 +85,7 @@ const Table = ({initialData}: {initialData: User[]}) => {
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
-                <td>
+                <td className="pt-[20px]">
                   <button>
                     <ShareButton className="text-[#6C7080] cursor-pointer" />
                   </button>
