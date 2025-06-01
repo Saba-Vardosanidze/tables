@@ -3,6 +3,8 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import {useState} from "react";
@@ -15,9 +17,22 @@ const columHelper = createColumnHelper<User>();
 const Table = ({initialData}: {initialData: User[]}) => {
   const [data, setData] = useState<User[]>(initialData);
 
+  const [sorting, setSortingt] = useState<SortingState>([]);
+
   const table = useReactTable<User>({
     data: data,
     columns: colums,
+
+    state: {
+      sorting,
+    },
+
+    initialState: {
+      pagination: {
+        pageSize: 8,
+      },
+    },
+    getPaginationRowModel: getPaginationRowModel(),
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -68,6 +83,36 @@ const Table = ({initialData}: {initialData: User[]}) => {
             ))}
           </tbody>
         </table>
+        <div className="flex sm:flex-row flex-col justify-between items-center mt-4 text-gray-700 text-sm">
+          <div className="flex items-center space-x-2">
+            <button
+              className="bg-gray-100 hover:bg-gray-200 disabled:opacity-50 p-2 rounded-md text-gray-600"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            ></button>
+
+            <span className="flex items-center">
+              <input
+                min={1}
+                max={table.getPageCount()}
+                type="number"
+                value={table.getState().pagination.pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  table.setPageIndex(page);
+                }}
+                className="p-2 border border-gray-300 rounded-md w-16 text-center"
+              />
+              <span className="ml-1">of {table.getPageCount()}</span>
+            </span>
+
+            <button
+              className="bg-gray-100 hover:bg-gray-200 disabled:opacity-50 p-2 rounded-md text-gray-600"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            ></button>
+          </div>
+        </div>
       </div>
     </div>
   );

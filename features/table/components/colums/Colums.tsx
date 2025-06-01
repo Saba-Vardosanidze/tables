@@ -10,7 +10,7 @@ export const colums = [
       <span className="flex text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
     header: () => (
-      <span className="flex items-center">
+      <span className="flex items-center cursor-pointer">
         ნომერი
         <Market width={15} height={15} />
       </span>
@@ -24,14 +24,14 @@ export const colums = [
         </span>
       </div>
     ),
-    header: () => <span>სტატუსი</span>,
+    header: () => <span className="cursor-pointer">სტატუსი</span>,
   }),
   columnHelper.accessor("date_created", {
     cell: (info) => (
       <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
     header: () => (
-      <span className="flex items-center">
+      <span className="flex items-center cursor-pointer">
         თარიღი
         <Market width={15} height={15} />
       </span>
@@ -41,14 +41,16 @@ export const colums = [
     cell: (info) => (
       <span className="text-[#D59A04] text-[12px]">{info.getValue()}</span>
     ),
-    header: () => <span>მეთოდი</span>,
+    header: () => (
+      <span className="flex justify-start cursor-pointer">მეთოდი</span>
+    ),
   }),
   columnHelper.accessor("amount_to", {
     cell: (info) => (
       <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
     header: () => (
-      <span className="flex items-center">
+      <span className="flex items-center cursor-pointer">
         მიღებული თანხა
         <Market width={15} height={15} />
       </span>
@@ -59,7 +61,7 @@ export const colums = [
       <span className="text-[#FFFFFF] text-[12px]">{info.getValue()}</span>
     ),
     header: () => (
-      <span className="flex items-center">
+      <span className="flex items-center cursor-pointer">
         გადახდილი თანხა
         <Market width={15} height={15} />
       </span>
