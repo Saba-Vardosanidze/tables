@@ -1,6 +1,5 @@
 "use client";
 import {
-  createColumnHelper,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -19,14 +18,12 @@ import {
 import {User} from "../type/type";
 import {colums} from "./colums/Colums";
 
-const columHelper = createColumnHelper<User>();
-
 const Table = ({initialData}: {initialData: User[]}) => {
-  const [data, setData] = useState<User[]>(initialData);
-  const [sorting, setSortingt] = useState<SortingState>([]);
+  const [data] = useState<User[]>(initialData);
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable<User>({
-    data: data,
+    data,
     columns: colums,
     state: {
       sorting,
@@ -39,8 +36,56 @@ const Table = ({initialData}: {initialData: User[]}) => {
     getPaginationRowModel: getPaginationRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    onSortingChange: setSortingt,
+    onSortingChange: setSorting,
   });
+
+  const pageIndex = table.getState().pagination.pageIndex;
+  const pageCount = table.getPageCount();
+
+  const renderPageButtons = () => {
+    const pages: (number | string)[] = [];
+
+    if (pageCount <= 5) {
+      for (let i = 0; i < pageCount; i++) pages.push(i);
+    } else {
+      if (pageIndex <= 1) {
+        pages.push(0, 1, ".....", pageCount - 1);
+      } else if (pageIndex >= pageCount - 2) {
+        pages.push(0, ".....", pageCount - 2, pageCount - 1);
+      } else {
+        pages.push(
+          0,
+          ".....",
+          pageIndex - 1,
+          pageIndex,
+          pageIndex + 1,
+          ".....",
+          pageCount - 1
+        );
+      }
+    }
+
+    return pages.map((page, index) =>
+      page === "....." ? (
+        <span
+          key={`ellipsis-${index}`}
+          className="flex justify-center items-center text-[#6C7080]"
+        >
+          .....
+        </span>
+      ) : (
+        <button
+          key={page}
+          onClick={() => table.setPageIndex(Number(page))}
+          className={`w-[30px] h-[30px] rounded-[10px] cursor-pointer text-sm flex items-center justify-center ${
+            pageIndex === page ? "text-[#2B3144]" : "text-[#6C7080]"
+          }`}
+        >
+          {Number(page) + 1}
+        </button>
+      )
+    );
+  };
 
   return (
     <div className="flex flex-col justify-between bg-[#121318] m-auto mt-[48px] p-[40px] rounded-[10px] w-full max-w-[792px] min-h-[658px]">
@@ -103,27 +148,19 @@ const Table = ({initialData}: {initialData: User[]}) => {
           <p>{initialData.length}</p>
           <p>ჩანაწერი</p>
         </div>
-        <div className="flex items-center gap-[20px]">
+        <div className="flex items-center gap-[5px]">
           <button
-            className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] text-[#D59A04] disabled:text-[#9295A6] cursor-pointer"
+            className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent mr-[15px] border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] text-[#D59A04] disabled:text-[#9295A6] cursor-pointer"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
             <PrevButton />
           </button>
-          <div className="flex justify-between">
-            <div className="flex justify-center items-center w-[30px] text-[#2B3144]">
-              {table.getState().pagination.pageIndex + 1}
-            </div>
-            <div className="flex justify-center items-center w-[30px]">
-              .....
-            </div>
-            <span className="flex justify-center items-center w-[30px] text-[#6C7080] text-[16px]">
-              {table.getPageCount()}
-            </span>
-          </div>
+
+          {renderPageButtons()}
+
           <button
-            className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] text-[#D59A04] disabled:text-[#9295A6] cursor-pointer"
+            className="flex justify-center items-center bg-[#0B0F16] disabled:bg-transparent ml-[15px] border border-[#D59A04] disabled:border-none rounded-[10px] w-[30px] h-[30px] text-[#D59A04] disabled:text-[#9295A6] cursor-pointer"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
